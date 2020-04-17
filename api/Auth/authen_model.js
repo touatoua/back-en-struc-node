@@ -1,12 +1,13 @@
 const knex = require('../../database/knex')
 
 class authenModel {
-    login() {
-        return knex('chat_tbl')
+    insertUser(data) {
+        return knex('user_tbl').insert(data)
     }
 
-    fetUserData(user_id) {
-        return knex('user_tbl').where('user_id', user_id)
+    getUserbyUsername(username) {
+        return knex('user_tbl')
+            .where('username', username)
     }
 }
 
