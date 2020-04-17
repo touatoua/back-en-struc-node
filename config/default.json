@@ -1,0 +1,13 @@
+{
+    "TOKEN": {
+        "ACCESS_TOKEN_KEY": "$~.Oy2E#d0Qah`vgog9d[1po,vOh8;v:yK+[*=;4v,v(o7e?rQ2M<(%a_+nC{ml",
+        "ACCESS_TOKEN_EXPIRE": 86400,
+        "REFRESH_TOKEN_KEY": "^/F??YesS]$oIyk{>R14Sbh>fVg7D*[Ag!ZUk}RPG~}{`/d+|^$1$^nlL%N5sx*",
+        "REFRESH_TOKEN_EXPIRE": 7776000
+    },
+    "COOKIE": {
+        "COOKIE_KEY": "c01D((![F%6~~ax>?NKbN:ai2U0l^^(i%@A=Ic?YSV3^jdNE-/{f%+y$m0WW?**",
+        "COOKIE_EXPIRE": 7777000
+    },
+    "SECRET": "]ncC[8]Ma8!WM'~Ik5xjo]1]nt9[+Rb0%Hk_cejgPYi(|l>(9-I-M*T1>*MTw`{"
+}
