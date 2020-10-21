@@ -13,7 +13,7 @@ const rateLimit = require('express-rate-limit')
 const COOKIE = require('config').get('COOKIE')
 
 const app = express()
-const port = 4000
+const port = 4210
 const version = '/api/v1'
 
 // path file
@@ -67,7 +67,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 const server = app.listen(port, function () {
-    console.log('back-structure is runnung port: ' + port)
+    console.log('PS-back is runnung port: ' + port)
 })
 
 const io = socketIO.listen(server);
