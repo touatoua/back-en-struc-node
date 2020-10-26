@@ -2,7 +2,7 @@ const authenModel = require('./authen_model')
 const { success, failed } = require('../../config/response')
 const bcrypt = require('bcryptjs')
 const moment = require('moment-timezone');
-const { encrypt } = require('../../config/helper')
+const { encrypt, pick } = require('../../config/helper');
 
 class authenController {
 
@@ -16,20 +16,14 @@ class authenController {
             if (!checkPassword) {
                 return failed(res, 'username or password invalid')
             }
-            
+
             const _cf1 = user[0]
             const cf1 = encrypt(_cf1)
             req.session = { cf1 }
 
-            let userData = {
-                user_id: user[0].user_id,
-                username: user[0].username,
-                first_name: user[0].first_name,
-                last_name: user[0].last_name,
-                role: user[0].role
-            }
+            delete user[0].password
 
-            success(res, userData)
+            success(res, user[0])
         } catch (error) {
             console.log(error)
             failed(res, 'login fail')
@@ -38,22 +32,26 @@ class authenController {
 
     async register(req, res) {
         try {
-            const { username, first_name, last_name, email, role } = req.body
+            const user = pick([
+                'username',
+                'firstname',
+                'lastname',
+                'email'
+            ], req.body);
             const password = await bcrypt.hash(req.body.password.replace(/\s/g, ''), 10)
-            const create_at = moment().tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss');
 
-            let checkUsername = await authenModel.getUserbyUsername(username)
+            let checkUsername = await authenModel.getUserbyUsername(user.username)
 
             if (checkUsername.length > 0) {
                 return failed(res, 'username นี้ถูกใช้แล้ว')
             }
 
-            await authenModel.insertUser({ username, first_name, last_name, email, role, password, create_at })
+            await authenModel.insertUser({ ...user, password })
 
             success(res, 'success')
         } catch (error) {
             console.log(error)
-            failed(res, 'login fail')
+            failed(res, 'register fail')
         }
     }
 
