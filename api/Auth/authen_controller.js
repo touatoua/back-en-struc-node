@@ -1,7 +1,6 @@
 const authenModel = require('./authen_model')
 const { success, failed } = require('../../config/response')
 const bcrypt = require('bcryptjs')
-const moment = require('moment-timezone');
 const { encrypt, pick } = require('../../config/helper');
 
 class authenController {
@@ -48,6 +47,15 @@ class authenController {
 
             await authenModel.insertUser({ ...user, password })
 
+            success(res, 'success')
+        } catch (error) {
+            console.log(error)
+            failed(res, 'register fail')
+        }
+    }
+
+    async check(req, res) {
+        try {
             success(res, 'success')
         } catch (error) {
             console.log(error)
