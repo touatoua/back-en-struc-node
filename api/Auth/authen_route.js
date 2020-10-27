@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const authenController = require('./authen_controller')
-const { userToken } = require('../../middleware/token')
+const { userToken, tokenAdmin } = require('../../middleware/token')
 
 router.post('/login', authenController.login)
 
