@@ -64,6 +64,17 @@ class authenController {
         }
     }
 
+    async logout(req, res) {
+        try {
+            req.session = null
+
+            success(res, 'logout success')
+        } catch (error) {
+            failed(res, 'logout failed')
+        }
+    }
+
+
 }
 
 module.exports = new authenController()

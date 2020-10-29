@@ -9,5 +9,7 @@ router.post('/register', authenController.register)
 
 router.get('/check', userToken(), authenController.check)
 
+router.get('/logout', authenController.logout)
+
 
 module.exports = router
