@@ -38,6 +38,37 @@ class orderController {
                 'note'
             ], req.body);
 
+            const userinfo = pick([
+                'a_card',
+                'name',
+                'idcard',
+                'tel',
+                'line',
+                'address',
+                'sub_district',
+                'district',
+                'province',
+                'zipcode',
+            ], req.body);
+
+            const contactInfo = pick([
+                'address',
+                'sub_district',
+                'district',
+                'province',
+                'zipcode',
+            ], req.body);
+
+            const ownerInfo = pick([
+                'name',
+                'idcard',
+                'address',
+                'sub_district',
+                'district',
+                'province',
+                'zipcode',
+            ], req.body);
+
             success(res, 'success')
         } catch (error) {
             console.log(error)

@@ -5,6 +5,10 @@ class psModel {
         return knex('branch_tbl').insert(data)
     }
 
+    addPromotion(data) {
+        return knex('promotion_tbl').insert(data)
+    }
+
 
 }
 
