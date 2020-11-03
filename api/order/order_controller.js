@@ -88,7 +88,7 @@ class orderController {
                 await orderModel.addAccessories(insertAccessoreies)
             }
 
-            if (eq.body.promotions) {
+            if (req.body.promotions) {
                 let insertPromotion = req.body.promotions.map(el => ({ promotion_id: el, order_id: insertOrder[0] }))
                 await orderModel.addPromotions(insertPromotion)
             }
