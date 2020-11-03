@@ -22,6 +22,8 @@ class orderController {
                 'discount_price',
                 'vat',
                 'real_price',
+                'down',
+                'sub_down',
                 'recommend_price',
                 'other_pay',
                 'other_pay_price',
@@ -80,17 +82,52 @@ class orderController {
             ], req.body);
 
             await orderModel.addOwnerinfo({ ...ownerInfo, order_id: insertOrder[0] })
-            let insertAccessoreies = req.body.accessoreies.map(el => ({ accessories_id: el, order_id: insertOrder[0] }))
-            await orderModel.addAccessories(insertAccessoreies)
 
-            let insertPromotion = req.body.promotions.map(el => ({ promotion_id: el, order_id: insertOrder[0] }))
-            await orderModel.addPromotions(insertPromotion)
+            if (req.body.accessoreies) {
+                let insertAccessoreies = req.body.accessoreies.map(el => ({ accessories_id: el, order_id: insertOrder[0] }))
+                await orderModel.addAccessories(insertAccessoreies)
+            }
+
+            if (eq.body.promotions) {
+                let insertPromotion = req.body.promotions.map(el => ({ promotion_id: el, order_id: insertOrder[0] }))
+                await orderModel.addPromotions(insertPromotion)
+            }
 
 
-            success(res, 'success')
+            success(res, 'add success')
         } catch (error) {
             console.log(error)
-            failed(res, 'login fail')
+            failed(res, 'add fail')
+        }
+    }
+
+    async getOrders(req, res) {
+        try {
+            let orders = await orderModel.getOrders()
+
+            success(res, orders)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
+        }
+    }
+
+    async thisOrder(req, res) {
+        try {
+            let order = await orderModel.thisOrder(req.body.order_id)
+            let promotion = await orderModel.thisPromotion(req.body.order_id)
+            if (promotion.length > 0) {
+                order[0].promotion = promotion
+            }
+            let accessoreies = await orderModel.thisAccessoreies(req.body.order_id)
+            if (accessoreies.length > 0) {
+                order[0].accessoreies = accessoreies
+            }
+            success(res, order[0])
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
         }
     }
 

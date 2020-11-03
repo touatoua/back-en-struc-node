@@ -15,6 +15,18 @@ class psController {
         }
     }
 
+    async getBranch(req, res) {
+        try {
+            let branch = await psModel.getBranch()
+
+            success(res, branch)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
+        }
+    }
+
     async addPromotion(req, res) {
         try {
             const promotion = pick(['promotion_name', 'promotion_price'], req.body);
@@ -23,6 +35,17 @@ class psController {
         } catch (error) {
             console.log(error)
             failed(res, 'add fail')
+        }
+    }
+
+    async getPromotions(req, res) {
+        try {
+            let promotions = await psModel.getPromotions()
+            success(res, promotions)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
         }
     }
 
