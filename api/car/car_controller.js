@@ -44,6 +44,40 @@ class carController {
         }
     }
 
+    async getSeries(req, res) {
+        try {
+            let series = await carModel.getSeries()
+            success(res, series)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
+        }
+    }
+
+    async getModel(req, res) {
+        try {
+            let model = await carModel.getModel(req.body.series_id)
+            success(res, model)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
+        }
+    }
+
+    async getColors(req,res){
+        try {
+            let colors = await carModel.getColors(req.body.model_id)
+
+            success(res, colors)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
+        }
+    }
+
 
 
 }
