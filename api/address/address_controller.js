@@ -1,7 +1,7 @@
 const AddressModel = require('./AddressModel')
 const { success, failed } = require('../../config/response');
 
-class AdvertiseController {
+class AddressController {
     async getAllprovince(req, res) {
         try {
             let province = await AddressModel.getAllprovince()
@@ -15,7 +15,7 @@ class AdvertiseController {
     async getdistrict(req, res) {
         try {
 
-            let district = await AddressModel.getdistrict()
+            let district = await AddressModel.getdistrict(req.body.province_id)
             success(res, district);
         } catch (error) {
             console.log(error)
@@ -25,7 +25,7 @@ class AdvertiseController {
     async getsubdistrict(req, res) {
         try {
 
-            let district = await AddressModel.getsubdistrict()
+            let district = await AddressModel.getsubdistrict(req.body.amphure_id)
             success(res, district);
         } catch (error) {
             console.log(error)
@@ -33,15 +33,9 @@ class AdvertiseController {
         }
     }
 
-
-
-
-
-
-
 };
 
 
 
-module.exports = new AdvertiseController();
+module.exports = new AddressController();
 

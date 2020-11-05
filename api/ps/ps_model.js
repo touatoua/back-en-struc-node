@@ -26,6 +26,32 @@ class psModel {
             )
     }
 
+    addInsurance(data) {
+        return knex('insurance_tbl').insert(data)
+    }
+
+    getInsurance() {
+        return knex('insurance_tbl')
+            .select('insurance_id', 'insurance_name')
+    }
+
+    addAct(data) {
+        return knex('act_tbl').insert(data)
+    }
+
+    getAct() {
+        return knex('act_tbl')
+            .select('act_id', 'act_name')
+    }
+
+    addDiscount(data) {
+        return knex('discount_tbl').insert(data)
+    }
+
+    getDiscount() {
+        return knex('discount_tbl')
+            .select('discount_id', 'discount_name', 'discount_price')
+    }
 
 }
 
