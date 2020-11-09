@@ -35,8 +35,14 @@ class authenController {
                 'username',
                 'firstname',
                 'lastname',
+                'position_id',
+                'team_id',
+                'department_id',
+                'branch',
                 'email',
-                'role'
+                'role',
+                'status',
+                'employee_no'
             ], req.body);
             const password = await bcrypt.hash(req.body.password.replace(/\s/g, ''), 10)
 

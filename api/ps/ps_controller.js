@@ -51,9 +51,28 @@ class psController {
 
     async addInsurance(req, res) {
         try {
-            const insurance = pick(['insurance_name'], req.body);
+            const insurance = pick([
+                'insurance_name',
+                'insurance_branch',
+                'tax_code',
+                'supplier_type',
+                'tel',
+                'status',
+                'insurance_address',
+                'insurance_sub_district',
+                'insurance_district',
+                'insurance_provice',
+                'insurance_zipcode'
+            ], req.body);
+            const files = req.files
+            let insertInsurance = await psModel.addInsurance({ ...insurance })
 
-            await psModel.addInsurance({ ...insurance })
+            if (files) {
+                const addFiles = files.map(el => ({ file: el.filename, name: el.originalname, insurance_id: insertInsurance[0] }))
+                await psModel.addInsuranceFile(addFiles)
+
+            }
+
             success(res, 'add success')
 
         } catch (error) {
@@ -118,6 +137,67 @@ class psController {
         } catch (error) {
             console.log(error)
             failed(res, 'get fail')
+        }
+    }
+
+    async addSupplier(req, res) {
+        try {
+            const supplier = pick([
+                'supplier_code',
+                'supplier_name',
+                'supplier_type',
+                'supplier_created',
+                'supplier_address',
+                'supplier_sub_district',
+                'supplier_district',
+                'supplier_province',
+                'supplier_zipcode'
+            ], req.body);
+
+            await psModel.addSupplier({ ...supplier })
+
+            success(res, 'add success')
+        } catch (error) {
+            console.log(error)
+            failed(res, 'add fail')
+        }
+    }
+
+    async getSuppliers(req, res) {
+        try {
+            let suppliers = await psModel.getSuppliers()
+            success(res, suppliers)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
+        }
+    }
+
+    async addTeam(req, res) {
+        try {
+            const team = pick([
+                'team_name',
+                'branch_id',
+                'work_flow',
+            ], req.body);
+
+            await psModel.addTeam({ ...team })
+            success(res, 'add success')
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'add fail')
+        }
+    }
+
+    async getTeams(req, res) {
+        try {
+            let team = await psModel.getTeams()
+            success(res, team)
+        } catch (error) {
+            console.log(error)
+            failed(res, 'add fail')
         }
     }
 

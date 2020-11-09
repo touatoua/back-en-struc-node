@@ -30,9 +30,13 @@ class psModel {
         return knex('insurance_tbl').insert(data)
     }
 
+    addInsuranceFile(data) {
+        return knex('insurance_file_tbl').insert(data)
+    }
+
     getInsurance() {
         return knex('insurance_tbl')
-            .select('insurance_id', 'insurance_name')
+            .select('insurance_id', 'insurance_name', 'supplier_type', 'status')
     }
 
     addAct(data) {
@@ -51,6 +55,30 @@ class psModel {
     getDiscount() {
         return knex('discount_tbl')
             .select('discount_id', 'discount_name', 'discount_price')
+    }
+
+    addSupplier(data) {
+        return knex('supplier_tbl').insert(data)
+    }
+
+    getSuppliers() {
+        return knex('supplier_tbl')
+            .select('supplier_id',
+                'supplier_code',
+                'supplier_name',
+                'supplier_type',
+                'supplier_created',
+                'supplier_file',
+                'acept_status',
+                'status')
+    }
+
+    addTeam(data) {
+        return knex('team_tbl').insert(data)
+    }
+
+    getTeams() {
+        return knex('team_tbl')
     }
 
 }
