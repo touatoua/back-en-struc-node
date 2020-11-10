@@ -11,5 +11,6 @@ router.get('/check', userToken(), authenController.check)
 
 router.get('/logout', authenController.logout)
 
+router.get('/users', authenController.getUsers)
 
 module.exports = router

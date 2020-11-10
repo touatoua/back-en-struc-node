@@ -32,4 +32,8 @@ router.post('/add_team', psController.addTeam)
 
 router.get('/get_teams', psController.getTeams)
 
+router.get('/position', psController.getPosition)
+
+router.get('/workflow', psController.getWorkFlow)
+
 module.exports = router

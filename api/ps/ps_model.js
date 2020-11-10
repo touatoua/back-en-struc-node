@@ -81,6 +81,17 @@ class psModel {
         return knex('team_tbl')
     }
 
+    getPosition() {
+        return knex('position_tbl')
+            .select('postion_id',
+                'positon_name')
+    }
+
+    getWorkFlow() {
+        return knex('workflow_tbl')
+            .select('workflow_id', 'workflow_name')
+    }
+
 }
 
 module.exports = new psModel()

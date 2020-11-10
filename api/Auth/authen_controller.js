@@ -80,6 +80,17 @@ class authenController {
         }
     }
 
+    async getUsers(req, res) {
+        try {
+            let users = await authenModel.getUsers()
+            success(res, users)
+
+        } catch (error) {
+            failed(res, 'get failed')
+
+        }
+    }
+
 
 }
 

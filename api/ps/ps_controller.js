@@ -201,6 +201,28 @@ class psController {
         }
     }
 
+    async getPosition(req, res) {
+        try {
+            let position = await psModel.getPosition()
+            success(res, position)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
+        }
+    }
+
+    async getWorkFlow(req, res) {
+        try {
+            let work = await psModel.getWorkFlow()
+            success(res, work)
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'get fail')
+        }
+    }
+
 }
 
 module.exports = new psController()
