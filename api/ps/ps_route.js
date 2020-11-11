@@ -24,7 +24,7 @@ router.post('/add_discount', psController.addDiscount)
 
 router.get('/get_discount', psController.getDiscount)
 
-router.post('/add_supplier', psController.addSupplier)
+router.post('/add_supplier', upload.single('file'), psController.addSupplier)
 
 router.get('/get_suppliers', psController.getSuppliers)
 
@@ -35,5 +35,7 @@ router.get('/get_teams', psController.getTeams)
 router.get('/position', psController.getPosition)
 
 router.get('/workflow', psController.getWorkFlow)
+
+router.post('/add_leasing', upload.array('file'), psController.addLeasing)
 
 module.exports = router

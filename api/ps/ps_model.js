@@ -68,7 +68,7 @@ class psModel {
                 'supplier_name',
                 'supplier_type',
                 'supplier_created',
-                'supplier_file',
+                knex.raw(`CONCAT('${process.env.REACT_APP_API_PATH}/static/',supplier_file) as supplier_file`),
                 'acept_status',
                 'status')
     }
@@ -90,6 +90,14 @@ class psModel {
     getWorkFlow() {
         return knex('workflow_tbl')
             .select('workflow_id', 'workflow_name')
+    }
+
+    addLeasing(data) {
+        return knex('leasing_tbl').insert(data)
+    }
+
+    addLeasingFile(data) {
+        return knex('leasing_file_tbl').insert(data)
     }
 
 }

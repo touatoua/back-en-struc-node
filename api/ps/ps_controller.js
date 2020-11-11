@@ -153,8 +153,10 @@ class psController {
                 'supplier_province',
                 'supplier_zipcode'
             ], req.body);
-
-            await psModel.addSupplier({ ...supplier })
+            console.log(supplier.supplier_created)
+            let supplier_file = req.file.filename
+            console.log(supplier_file)
+            await psModel.addSupplier({ ...supplier, supplier_file })
 
             success(res, 'add success')
         } catch (error) {
@@ -220,6 +222,39 @@ class psController {
         } catch (error) {
             console.log(error)
             failed(res, 'get fail')
+        }
+    }
+
+    async addLeasing(req, res) {
+        try {
+            const leasing = pick([
+                'leasing_name',
+                'leasing_branch',
+                'leasing_taxid',
+                'leasing_type',
+                'leasing_tel',
+                'status',
+                'leasing_address',
+                'leasing_sub_district',
+                'leasing_district',
+                'leasing_province',
+                'leasing_zipcode',
+                'leasing_interest'
+            ], req.body);
+
+            let insertLeasing = await psModel.addLeasing({ ...leasing })
+            const files = req.files
+
+            if (files) {
+                const addFiles = files.map(el => ({ file: el.filename, name: el.originalname, leasinge_id: insertLeasing[0] }))
+                await psModel.addLeasingFile(addFiles)
+
+            }
+            success(res, 'add success')
+
+        } catch (error) {
+            console.log(error)
+            failed(res, 'add fail')
         }
     }
 

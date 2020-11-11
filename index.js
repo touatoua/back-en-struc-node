@@ -12,6 +12,8 @@ const cors = require("cors");
 const rateLimit = require('express-rate-limit')
 const COOKIE = require('config').get('COOKIE')
 
+require('dotenv').config()
+
 const app = express()
 const port = 4210
 const version = '/api/v1'
