@@ -73,6 +73,37 @@ class psModel {
                 'status')
     }
 
+    thisSupplier(supplier_id) {
+        return knex('supplier_tbl as s')
+            .join('user_tbl as u', 'u.user_id', 's.user_create')
+            .join('user_tbl as uu', 'u.user_id', 's.user_update')
+            .select('supplier_id',
+                's.supplier_code',
+                's.supplier_name',
+                's.supplier_type',
+                's.supplier_created',
+                knex.raw(`CONCAT('${process.env.REACT_APP_API_PATH}/static/',s.supplier_file) as supplier_file`),
+                's.acept_status',
+                's.status',
+                's.supplier_address',
+                's.supplier_sub_district',
+                's.supplier_district',
+                's.supplier_province',
+                's.supplier_zipcode',
+                's.created_at',
+                's.updated_at',
+                'u.username as user_create',
+                'uu.username as user_update'
+            )
+            .where('supplier_id', supplier_id)
+    }
+
+    editSupplier(data) {
+        return knex('supplier_tbl')
+            .update(data)
+            .where('supplier_id', data.supplier_id)
+    }
+
     addTeam(data) {
         return knex('team_tbl').insert(data)
     }
@@ -98,6 +129,73 @@ class psModel {
 
     addLeasingFile(data) {
         return knex('leasing_file_tbl').insert(data)
+    }
+
+    getLeasing() {
+        return knex('leasing_tbl')
+            .select(
+                'leasinge_id',
+                'leasing_name',
+                'leasing_type',
+                'status')
+    }
+
+    thisLeasing(leasinge_id) {
+        return knex('leasing_tbl')
+            .select(
+                'leasinge_id',
+                'leasing_name',
+                'leasing_branch',
+                'leasing_taxid',
+                'leasing_type',
+                'leasing_tel',
+                'status',
+                'leasing_address',
+                'leasing_sub_district',
+                'leasing_district',
+                'leasing_province',
+                'leasing_zipcode',
+                'leasing_interest',
+                'created_at'
+            )
+            .where('leasinge_id', leasinge_id)
+    }
+
+    getFileLeasing(leasinge_id) {
+        return knex('leasing_file_tbl')
+            .select(
+                'leasinge_file_id',
+                'name',
+                knex.raw(`CONCAT('${process.env.REACT_APP_API_PATH}/static/',file) as file`),
+            )
+            .where('leasinge_id', leasinge_id)
+    }
+
+    editLeasing(data) {
+        return knex('leasing_tbl')
+            .update(data)
+            .where('leasinge_id', data.leasinge_id)
+    }
+
+    deleteFileLeasing(data) {
+        return knex('leasing_file_tbl')
+            .whereIn('leasinge_file_id', data.delete)
+            .del()
+    }
+
+    addLeasingType(data) {
+        return knex('leadsingtype_tbl')
+            .insert(data)
+    }
+
+    getLeasingType() {
+        return knex('leadsingtype_tbl')
+    }
+
+    removeLeasingType(leadsingtype_id) {
+        return knex('leadsingtype_tbl')
+            .del()
+            .whereIn('leadsingtype_id', leadsingtype_id)
     }
 
 }

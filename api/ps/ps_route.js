@@ -24,9 +24,15 @@ router.post('/add_discount', psController.addDiscount)
 
 router.get('/get_discount', psController.getDiscount)
 
-router.post('/add_supplier', upload.single('file'), psController.addSupplier)
+router.post('/add_supplier', userToken(), upload.single('file'), psController.addSupplier)
 
 router.get('/get_suppliers', psController.getSuppliers)
+
+router.post('/this_supplier', psController.thisSupplier)
+
+router.post('/edit_supplier', userToken(), psController.editSupplier)
+
+router.post('/edit_file_supplier', userToken(), upload.single('file'), psController.editSupplierFile)
 
 router.post('/add_team', psController.addTeam)
 
@@ -37,5 +43,17 @@ router.get('/position', psController.getPosition)
 router.get('/workflow', psController.getWorkFlow)
 
 router.post('/add_leasing', upload.array('file'), psController.addLeasing)
+
+router.get('/get_leasing', psController.getLeasing)
+
+router.post('/this_leasing', psController.thisLeasing)
+
+router.post('/edit_leasing', psController.editLeasing)
+
+router.post('/add_type_leasing', psController.addLeasingType)
+
+router.get('/get_type_leasing', psController.getLeasingType)
+
+router.post('/del_type_leasing', psController.removeLeasingType)
 
 module.exports = router
